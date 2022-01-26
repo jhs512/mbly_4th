@@ -26,6 +26,8 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.id}, {self.display_name}"
 
+    description = models.TextField('설명')
+
     reg_date = models.DateTimeField('등록날짜', auto_now_add=True)
     update_date = models.DateTimeField('갱신날짜', auto_now=True)
 

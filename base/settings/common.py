@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     # 로컬
+    'tags.apps.TagsConfig',
     'accounts.apps.AccountsConfig',
     'markets.apps.MarketsConfig',
     'products.apps.ProductsConfig',
@@ -176,7 +177,7 @@ CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication', # rest_framework_simplejwt.authentication.JWTAuthentication 사용하지 마세요.
+        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',  # rest_framework_simplejwt.authentication.JWTAuthentication 사용하지 마세요.
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100

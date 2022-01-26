@@ -31,6 +31,8 @@ class User(AbstractUser):
     last_name = None
     date_joined = None
 
+    follower_set = models.ManyToManyField("self", blank=True)
+
     reg_date = models.DateTimeField('등록날짜', auto_now_add=True)
     update_date = models.DateTimeField('갱신날짜', auto_now=True)
 
