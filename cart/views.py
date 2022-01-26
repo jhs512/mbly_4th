@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.db.models import QuerySet
 from django.http import HttpRequest
 # Create your views here.
@@ -55,7 +56,11 @@ def list(request: HttpRequest):
 @login_required
 @require_POST
 def delete_items(request: HttpRequest):
+    if not request.POST.get('ids', ''):
+        raise ValidationError("ids 가 입력되지 않았습니다.")
+
     ids = map(int, request.POST.get('ids').split(','))
+
     cart_items = CartItem.objects.filter(id__in=ids)
 
     for cart_item in cart_items:

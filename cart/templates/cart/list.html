@@ -51,6 +51,11 @@
             .map((i, el) => parseInt($(el).attr('data-id')))
             .toArray();
 
+        if ( cartItemIds.length == 0 ) {
+            alert('삭제할 상품을 선택해주세요.');
+            return;
+        }
+
         CartItemsDeleteForm.ids.value = cartItemIds;
         CartItemsDeleteForm.submit();
     }
