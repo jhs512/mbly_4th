@@ -3,6 +3,7 @@ import os
 import requests
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     logout_then_login, LoginView,
 )
@@ -20,7 +21,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .decorators import logout_required
-from .forms import JoinForm, FindUsernameForm, LoginForm
+from .forms import JoinForm, FindUsernameForm, LoginForm, UserEditForm
 from .models import User
 from .serializers import MyTokenObtainPairSerializer, ApiRefreshRefreshTokenSerializer
 
@@ -67,6 +68,22 @@ def join(request: HttpRequest):
     else:
         form = JoinForm()
     return render(request, 'accounts/join.html', {
+        'form': form,
+    })
+
+
+@login_required
+def edit(request: HttpRequest):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "회원정보가 수정되었습니다.")
+            next_url = request.GET.get('next', '/')
+            return redirect(next_url)
+    else:
+        form = UserEditForm(instance=request.user)
+    return render(request, 'accounts/edit.html', {
         'form': form,
     })
 

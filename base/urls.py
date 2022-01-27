@@ -21,7 +21,6 @@ from django_pydenticon.views import image as pydenticon_image
 
 from . import views
 
-
 urlpatterns = [
     path('', views.index, name="main"),
     path('accounts/', include('accounts.urls')),
@@ -31,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('identicon/image/<path:data>/', pydenticon_image, name='pydenticon_image'),
 ]
+
 if settings.DEBUG:
     import debug_toolbar
 
